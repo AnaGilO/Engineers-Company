@@ -1,2 +1,2 @@
 # Engineers-Company
-Project for Software Engineering
+Project for Software Engineering & friends
