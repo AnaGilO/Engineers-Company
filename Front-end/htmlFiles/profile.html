@@ -9,17 +9,60 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </header>
 <style>
-    body {
-        background-image: url("background.jpeg"); 
-    }
+
+*{
+    color:#ffffff
+}
+
+.profile-menu {
+  width: 380px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #070707;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0.7
+}
+
+.profile-menu-header h2{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.profile-menu-header {
+  text-align: center;
+}
+
+.profile-menu-header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-menu-header p {
+  margin: 0;
+  color: #ffffff;
+}
+
+
+
 </style>
+<div class="profile-menu">
+    <div class="profile-menu-header">
+      <img src="profile-picture.jpg" alt="Profile Picture">
+      <h1>About me</h1> 
+      <h2>Personal infomation</h2> 
+      <p>Username</p> 
+      <p>Email</p> 
+      <h2>Progress</h2> 
+      <p>Learning level</p> 
+    </div>
+  </div>
+
 <body>
-    <h1>My Profile</h1> 
-    <h2>Personal infomation</h2> 
-    <p>Username</p> 
-    <p>Email</p> 
-    <h2>Progress</h2> 
-    <p>Learning level</p> 
     <!--
         The original idea is to display a graph repressenting the progress level of the user, along with an indicator of his learning level
         (beginner, intermediate, advanced...)
