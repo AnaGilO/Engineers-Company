@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Forum</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    <style>
+        body {
+            background-image: url("background.jpeg"); 
+        }
+        *{
+            box-sizing: border-box;
+        }
+        header{
+            background-image: url("maxresdefault.jpg");
+            padding:20px;
+            color: blanchedalmond;
+            text-align:center;
+            background-color: aqua;
+        }
+        section{
+            background-color: aqua;
+        }
+    </style>
+</head>
+    
+
+<body>
+	<header>
+	    <h2>Forum</h2>
+	</header>
+
+ 	<h1>Crear Pregunta</h1>
+ 	<form action="forum/create_question" method="post">
+    	<div>
+        	<label>Question</label> <br>
+        	<input type="text" name="question_forum" id="question_forum"> <br>
+        </div>
+        <div>
+        	<label>Description</label> <br>
+        	<textarea name="forum_description" id="forum_description"></textarea>
+        </div>
+        <input value="Send" type="submit">
+    </form>
+    <br>
+    <div th:each="f : ${lista_preguntas}">
+    	<div>
+    		<label>Question</label> <br>
+    		<a th:href="@{/forum/show_replies/{id}(id=${f.forum_id})}" th:text="${f.forum_question_name}"></a>
+    	</div>
+    	<div>
+    		<label>Usuario</label> <br>
+    		<span th:text="${f.user_name}"></span>
+    	</div>
+    </div>
+</body>
+</html>

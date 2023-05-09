@@ -24,10 +24,21 @@ public class Persona {
 	
 	private String password;
 	
+	private Integer is_admin;
+	
 	public Persona() {
 		fecha_creacion = LocalDate.now();	
 	}
 	
+	
+	public Integer getIs_admin() {
+		return is_admin;
+	}
+
+	public void setIs_admin(Integer is_admin) {
+		this.is_admin = is_admin;
+	}
+
 	public Integer getPersona_pk() {
 		return persona_pk;
 	}

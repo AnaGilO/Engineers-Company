@@ -13,6 +13,8 @@ public class PersonaService {
 	PersonaRepository personaRepository;
 
 	public void save(Persona p) {
+		p.setIs_admin(0);
 		personaRepository.saveAndFlush(p);
 	}
+
 }
