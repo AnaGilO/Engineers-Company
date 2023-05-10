@@ -16,5 +16,9 @@ public class PersonaService {
 		p.setIs_admin(0);
 		personaRepository.saveAndFlush(p);
 	}
+	
+	public void save_account(Persona p) {
+		personaRepository.saveAndFlush(p);
+	}
 
 }

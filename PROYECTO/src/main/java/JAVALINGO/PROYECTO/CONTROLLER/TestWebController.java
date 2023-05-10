@@ -57,6 +57,7 @@ public class TestWebController {
 	@RequestMapping("/home")
 	public String home (HttpSession session) {
 		Persona persona = (Persona) session.getAttribute("user");
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
 		if (persona != null) {
 			return "menu";
 		}else {
@@ -74,9 +75,11 @@ public class TestWebController {
 	    	 Persona persona = personas.get(0);
 	    	 Integer id = persona.getPersona_pk();
 	    	 String user_name = persona.getNombre();
+	    	 Integer is_admin = persona.getIs_admin();
 	         session.setAttribute("user", persona);
 	         session.setAttribute("id", id);
 	         session.setAttribute("user_name", user_name);
+	         session.setAttribute("is_admin", is_admin);	         
 	         return "redirect:/home";
 	    }else {
 	    	return "login";
@@ -195,7 +198,55 @@ public class TestWebController {
 	}
 	
 	@RequestMapping ("/admin")
-	public String admin_login() {
-		return "admin_login";
+	public String admin_panel(HttpSession session) {
+		Persona persona = (Persona) session.getAttribute("user");
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (persona != null && is_admin != 1)
+			return "redirect:/logout";
+		else
+			return "admin_panel";
+	}
+	
+	@RequestMapping("/accounts")
+	public String accounts(HttpSession session, Model model) {
+		Persona p = (Persona) session.getAttribute("user");
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p != null && is_admin == 1) {
+			Query query = entityManager.createQuery("SELECT f FROM Persona f WHERE f.is_admin = 0");
+			List<Persona> accounts = query.getResultList();
+			model.addAttribute("accounts", accounts);
+			return "accounts";
+		}
+			
+		else
+			return "redirect:/login";
+	}
+	
+	@RequestMapping("/create_account")
+	public String create_account(Model model) {
+		model.addAttribute("persona",new Persona());
+		return "create_account";
+	}
+	
+	
+	@PostMapping("create_account/save")
+	public String save_new_account(Persona p){
+		personaService.save_account(p);
+		return "redirect:/accounts";
+	}
+	
+	@RequestMapping("/admin_exercises")
+	public String admin_exercises(HttpSession session, Model model) {
+		Persona p = (Persona) session.getAttribute("user");
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p != null && is_admin == 1) {
+			Query query = entityManager.createQuery("SELECT f FROM Persona f WHERE f.is_admin = 0");
+			List<Persona> accounts = query.getResultList();
+			model.addAttribute("accounts", accounts);
+			return "accounts";
+		}
+			
+		else
+			return "redirect:/login";
 	}
 }

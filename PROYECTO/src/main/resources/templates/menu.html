@@ -21,6 +21,7 @@
         <a href="forum">Forum</a>
         <a href="profile">Profile</a> 
         <a href="logout">Log out</a> 
+        <a href="admin" th:if="${session.is_admin eq 1}">Admin Panel</a> 
     </nav>
 </body>
 </html>

@@ -1,0 +1,8 @@
+2023-05-10 09:30:52 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO PERSONA (MAIL, NOMBRE, PASSWORD, IS_ADMIN) VALUES (rober[*]@rober, rober, rober, 1)"; se esperaba "(, ., [, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO PERSONA (MAIL, NOMBRE, PASSWORD, IS_ADMIN) VALUES (rober[*]@rober, rober, rober, 1)"; expected "(, ., [, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+INSERT INTO PERSONA (MAIL, NOMBRE, PASSWORD, IS_ADMIN) VALUES (rober@rober, rober, rober, 1) [42001-214]
+2023-05-10 09:32:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "INSERT INTO Persona (mail) VALUES(rober[*]@rober)"; se esperaba "(, ., [, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"
+Syntax error in SQL statement "INSERT INTO Persona (mail) VALUES(rober[*]@rober)"; expected "(, ., [, ::, AT, FORMAT, *, /, %, +, -, ||, NOT, IS, ILIKE, REGEXP, AND, OR, ,, )"; SQL statement:
+INSERT INTO Persona (mail) VALUES(rober@rober) [42001-214]
