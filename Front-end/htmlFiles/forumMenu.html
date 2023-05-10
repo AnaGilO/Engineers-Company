@@ -1,3 +1,38 @@
+<!--<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Forum</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+    <style>
+        body {
+            background-image: url("background.jpeg"); 
+        }
+        *{
+            box-sizing: border-box;
+        }
+        header{
+            background-image: url("maxresdefault.jpg");
+            padding:20px;
+            color: blanchedalmond;
+            text-align:center;
+            background-color: aqua;
+        }
+        section{
+            background-color: aqua;
+        }
+    </style>
+<header>
+    <h2>Forum</h2>
+</header>
+
+<body>
+    <section>
+        xd
+    </section>
+    <h1>sex</h1>
+</body>
+</html>-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +48,8 @@
 			display: block;
 			color: white;
 			text-align: center;
-			padding: 14px 16px;
+			padding: 0px 14px;
+            margin: 2px 0px 14px; 
 			text-decoration: none;
 		}
 		
@@ -21,6 +57,57 @@
 			background-color: #ddd;
 			color: black;
 		}
+        .question {
+            background-color: #f3eded;
+            border: 1px solid #CCCCCC;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .question-vote-up, .question-vote-down {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .question-vote-up::before, .question-vote-down::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-color: transparent;
+            margin: 2px;
+        }
+
+        .question-vote-up::before {
+            border-width: 0 6px 6px 6px;
+            border-bottom-color: #666666;
+            }
+
+        .question-vote-down::before {
+            border-width: 6px 6px 0 6px;
+            border-top-color: #666666;
+            }
+
+        .question-vote-count {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+
+
+        .question-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .question-details {
+            font-size: 14px;
+            color: #070707;
+        }
 	</style>
 </head>
 <body>
@@ -37,37 +124,16 @@
 		</nav>
 	</header>
 	<main>
-        <form>
-            <label for="usuario">Post title</label>
-            <input type="text" id="usuario" name="usuario">
-            <br>
-            <label for="comentario">Comentario:</label>
-            <textarea id="comentario" name="comentario"></textarea>
-            <br>
-            <button type="submit">Enviar</button>
-          </form>
-		<section class="post">
-			<h2>Post Title</h2>
-			
-			<footer>
-				<ul>
-					<li><a href="#">Upvote</a></li>
-					<li><a href="#">Downvote</a></li>
-					<li><a href="#">Comment</a></li>
-				</ul>
-			</footer>
-		</section>
-		<section class="post">
-			<h2>Post Title</h2>
-
-			<footer>
-				<ul>
-					<li><a href="#">Upvote</a></li>
-					<li><a href="#">Downvote</a></li>
-					<li><a href="#">Comment</a></li>
-				</ul>
-			</footer>
-		</section>
+        <br>
+            <div class="question">
+                <div class="question-votes">
+                    <button class="question-vote-up"></button>
+                    <span class="question-vote-count">42</span>
+                    <button class="question-vote-down"></button>
+                  </div>
+                <h2 class="question-title">What is the meaning of life?</h2>
+                <p class="question-details">Asked by u/philosopher101 3 hours ago</p>
+              </div>
 		<!-- add more posts here -->
 	</main>
 	<footer>
