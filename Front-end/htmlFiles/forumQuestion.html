@@ -2,28 +2,50 @@
 <html>
   <head>
     <title>Forum discussion - Posts</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    
   </head>
+  <style>
+  .form-section {
+    background-color: #f3eded;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .form-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-section textarea {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+</style>
   <body>
     <header>
       <h1>Javalingo's Forum</h1>
     </header>
     <section id="contenido">
       <article class="post">
+        <div class="form-section">
         <h2>Post title</h2>
         <p class="autor">Por Usuario1, el 21 de abril de 2023</p>
         <p class="contenido">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam viverra orci a leo egestas, vitae pellentesque mauris pellentesque. Pellentesque ut congue ipsum, quis pretium lorem. Duis elementum enim quis sapien facilisis consequat. Curabitur sagittis lacus vel nulla faucibus, a vestibulum libero gravida. Donec maximus sed nisi vitae hendrerit.</p>
       </article>
       <section class="comentarios">
+        <div class="form-section">
         <h3>Comments</h3>
         <form>
-            <label for="usuario">Nombre:</label>
-            <input type="text" id="usuario" name="usuario">
-            <br>
-            <label for="comentario">Comentario:</label>
+           
+            <label for="comentario">Comment:</label>
             <textarea id="comentario" name="comentario"></textarea>
             <br>
-            <button type="submit">Enviar</button>
+            <button type="submit">Submit</button>
           </form>
         <article class="comentario">
           <p class="autor">Por Usuario2, el 22 de abril de 2023</p>
@@ -35,6 +57,11 @@
         </article>
       </section>
     </section>
+    <footer>
+      <p>&copy; Javalingo</p>
+    </footer>
+  </body>
+</html>
     <footer>
       <p>&copy; 2023 Forum Discussion</p>
     </footer>
