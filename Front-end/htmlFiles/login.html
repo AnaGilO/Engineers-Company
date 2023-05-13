@@ -6,16 +6,43 @@
 </header>
     <style>
         body {
-            background-image: url("background.jpeg"); 
+        text-align: center;
+        }
+        .fieldInput{
+            background-color: #f3eded;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0px 20px 0px;
+            box-shadow: 10px 10px #9c6969ad;
+        }
+        .fieldInput:hover{
+            box-shadow: 15px 15px #773737ad;
+            user-select: none;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 70px;
+        }
+        input[type=submit] {
+            background-color: #a94e47;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 200px;
+            border-radius:10px;
         }
     </style>
+
 <body>
     <h1>Login</h1>
     <form>
         <label for="usr">Username</label> <br>
-        <input type="text" id="usr"> <br>
+        <input class=fieldInput type="text" id="usr"> <br>
         <label for="psw">Password</label> <br>
-        <input type="password" id="psw">
+        <input class=fieldInput type="password" id="psw"> <br>
         <input type="submit">
     </form>
 </body>
