@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Create_ Exercise</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<body>
+	
+    	<h1>Create new Exercise</h1>
+    <form th:action="@{/create_exercise/save}" method="post" th:object="${exercise}">
+    	<div>
+        	<label>Excercise Name</label> <br>
+        	<input type="text" id ="exercise_name" th:field="*{exercise_name}"> <br>
+        </div>
+        <div>
+        	<input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

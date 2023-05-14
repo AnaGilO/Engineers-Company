@@ -4,9 +4,35 @@
     <title>login</title>
     <link rel="stylesheet" type="text/css" href="CSS/style.css">
 </header>
-    <style>
+     <style>
         body {
-            background-image: url("IMG/background.jpeg"); 
+        text-align: center;
+        }
+        .fieldInput{
+            background-color: #f3eded;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0px 20px 0px;
+            box-shadow: 10px 10px #9c6969ad;
+        }
+        .fieldInput:hover{
+            box-shadow: 15px 15px #773737ad;
+            user-select: none;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 70px;
+        }
+        input[type=submit] {
+            background-color: #a94e47;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 200px;
+            border-radius:10px;
         }
     </style>
 <body>
@@ -14,11 +40,11 @@
     <form th:action="@{/login}" method="post">
     	<div>
         	<label>Username</label> <br>
-        	<input type="text" name="username"> <br>
+        	<input class="fieldInput" type="text" name="username"> <br>
         </div>
         <div>
         	<label>Password</label> <br>
-        	<input type="password" name="password"> <br><br>
+        	<input class="fieldInput" type="password" name="password"> <br><br>
         </div>
         <input type="submit">
     </form>

@@ -2,33 +2,61 @@
 <html>
   <head>
     <title>Forum discussion - Posts</title>
+    <style>
+      .form-section {
+        background-color: #f3eded;
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+        padding: 10px;
+      }
+
+      .form-section label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .form-section textarea {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #CCCCCC;
+        border-radius: 4px;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
   <body>
     <header>
       <h1>Javalingo's Forum</h1>
     </header>
     <section id="contenido">
-    	<div th:each="f : ${forum_question}">
-        	<article class="post">
-        	<h2 th:text="${f.forum_question_name}"></h2>
-        	<p class="autor" th:text="${f.user_name}"></p>
-        	<p class="contenido" th:text="${f.forum_description}"></p>
-      		</article>
-      		<h3>Comments</h3>
-        	<form method="post" th:action="@{/create_answer/{id}(id=${f.forum_id})}">
-	            <label for="comentario">Comentario:</label>
-	            <textarea id="comentario" name="comentario"></textarea>
-	            <br>
-	            <button type="submit">Enviar</button>
-         	</form>
-      	</div>
+      <div th:each="f : ${forum_question}">
+      <div class="form-section">
+        <article class="post">
+          <h2 th:text="${f.forum_question_name}"></h2>
+          <p class="autor" th:text="@{${ 'Por: ' + f.user_name}}"></p>
+          <p class="contenido" th:text="${f.forum_description}"></p>
+       </div>
+       
+          <form method="post" th:action="@{/create_answer/{id}(id=${f.forum_id})}" class="form-section">
+          <label for="comentario">Comment:</label>
+          <textarea id="comentario" name="comentario"></textarea>
+          <br>
+          <button type="submit">Enviar</button>
+        </form>
+        </article>
+      </div>
+      <div class="form-section">
+      <h3>Comments</h3>
+     
       <section class="comentarios">
-        <div th:each=" fa : ${forum_answers}">
-        	<article class="comentario">
-          		<p class="autor" th:text="${fa.user_name}"></p>
-          		<p class="contenido" th:text="${fa.forum_description}"></p>
-        	</article>
+        <div th:each="fa : ${forum_answers}">
+          <article class="comentario">
+            <p class="autor" th:text="@{${ 'Por: ' + fa.user_name}}"></p>
+            <p class="contenido" th:text="${fa.forum_description}"></p>
+          </article>
         </div>
+       </div>
       </section>
     </section>
     <footer>

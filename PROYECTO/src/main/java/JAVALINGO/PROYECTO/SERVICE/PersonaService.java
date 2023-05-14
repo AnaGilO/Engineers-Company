@@ -13,12 +13,19 @@ public class PersonaService {
 	PersonaRepository personaRepository;
 
 	public void save(Persona p) {
-		p.setIs_admin(0);
+		p.setIs_admin(1);
 		personaRepository.saveAndFlush(p);
 	}
 	
 	public void save_account(Persona p) {
 		personaRepository.saveAndFlush(p);
 	}
+	
+	public void delete_persona (Integer id) {
+		personaRepository.deleteById(id);
+	}
 
+	public Persona getById(Integer id) {
+		return personaRepository.getReferenceById(id);
+	}
 }

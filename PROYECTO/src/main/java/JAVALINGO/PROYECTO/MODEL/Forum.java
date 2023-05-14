@@ -24,6 +24,17 @@ public class Forum {
 	
 	private String user_name;
 	
+	private Integer votes;
+	
+	
+	public Integer getVotes() {
+		return votes;
+	}
+
+	public void setVotes(Integer votes) {
+		this.votes = votes;
+	}
+
 	public String getUser_name() {
 		return user_name;
 	}

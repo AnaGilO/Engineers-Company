@@ -14,6 +14,20 @@ public class ForumService {
 	ForumRepository forumRepository;
 
 	public void save(Forum forum) {
+		forum.setVotes(0);
 		forumRepository.saveAndFlush(forum);
+	}
+	
+	public Forum getById(Integer id) {
+		return forumRepository.getReferenceById(id);
+	}
+	
+	public void update_votes(Forum forum, int i) {
+		forum.setVotes(forum.getVotes() + i);
+		forumRepository.saveAndFlush(forum);
+	}
+	
+	public void delete_forum_questons(Integer id) {
+		forumRepository.deleteById(id);
 	}
 }

@@ -11,15 +11,13 @@
     	<thead>
     		<th>Nombre</th>
     		<th>Mail</th>
-    		<th>Borrar</th>
-    		<th>Editar</th>
     	</thead>
     	<tbody>
     		<tr th:each="p : ${accounts}">
     			<td th:text="${p.nombre}"></td>
     			<td th:text="${p.mail}"></td>
-    			<td><a>Borrar</a></td>
-    			<td><a>Editar</a></td>
+    			<td><a th:href="@{/accounts/delete/{id}(id=${p.persona_pk})}">Borrar</a></td>
+    			<td><a th:href="@{/accounts/edit/{id}(id=${p.persona_pk})}">Editar</a></td>
     		<tr>
     	</tbody>
     </table>

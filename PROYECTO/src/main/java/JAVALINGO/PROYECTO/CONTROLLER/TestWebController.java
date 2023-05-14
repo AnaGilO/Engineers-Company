@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import JAVALINGO.PROYECTO.MODEL.Exercises;
 import JAVALINGO.PROYECTO.MODEL.Forum;
 import JAVALINGO.PROYECTO.MODEL.Persona;
+import JAVALINGO.PROYECTO.MODEL.Test_answers;
+import JAVALINGO.PROYECTO.MODEL.Test_questions;
 import JAVALINGO.PROYECTO.REPOSITORY.ForumRepository;
+import JAVALINGO.PROYECTO.SERVICE.ExercisesService;
 import JAVALINGO.PROYECTO.SERVICE.ForumService;
 import JAVALINGO.PROYECTO.SERVICE.PersonaService;
+import JAVALINGO.PROYECTO.SERVICE.Test_answersService;
+import JAVALINGO.PROYECTO.SERVICE.Test_questionsService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +42,15 @@ public class TestWebController {
 	
 	@Autowired
 	ForumService forumService;
+	
+	@Autowired
+	ExercisesService exercisesService;
+	
+	@Autowired
+	Test_questionsService test_questionsService;
+	
+	@Autowired
+	Test_answersService test_answersService;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -101,6 +116,7 @@ public class TestWebController {
 	@GetMapping("/forum")
 	public String forum_answers(HttpSession session, Model model) {
 		Persona p = (Persona) session.getAttribute("user");
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
 		if (p != null) {
 			Query query = entityManager.createQuery("SELECT f FROM Forum f WHERE f.is_parent = 1");
 			List<Forum> forum_questions = query.getResultList();
@@ -138,6 +154,13 @@ public class TestWebController {
 		}
 		return "redirect:/login";
 	}
+	
+	@RequestMapping("/forum/delete/{id}")
+	public String delete_forum_element(@PathVariable("id") Integer id) {
+		forumService.delete_forum_questons(id);
+		return "redirect:/forum";
+	}
+	
 	
 	@RequestMapping("/profile")
 	public ModelAndView profile(HttpSession session) {
@@ -197,6 +220,19 @@ public class TestWebController {
 		}
 	}
 	
+	@PostMapping("/incrementar_votos")
+	public String incrementar_votos(@RequestParam("incrementar_forum_id") Integer forum_id) {
+		Forum forum = forumService.getById(forum_id);
+		forumService.update_votes(forum, 1);
+		return "redirect:/forum";
+	}
+	
+	@PostMapping("/decrementar_votos")
+	public String decrementar_votos(@RequestParam("decrementar_forum_id") Integer forum_id) {
+		Forum forum = forumService.getById(forum_id);
+		forumService.update_votes(forum, -1);
+		return "redirect:/forum";
+	}
 	@RequestMapping ("/admin")
 	public String admin_panel(HttpSession session) {
 		Persona persona = (Persona) session.getAttribute("user");
@@ -235,18 +271,149 @@ public class TestWebController {
 		return "redirect:/accounts";
 	}
 	
+	
+	@RequestMapping("/accounts/delete/{id}")
+	public String delete_account(@PathVariable("id") Integer id, HttpSession session) {
+		Persona p = (Persona) session.getAttribute("user");	
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p == null || is_admin != 1)
+				return "redirect:/login";
+		else {
+			personaService.delete_persona(id);
+			return "redirect:/accounts ";
+		}
+	}
+	
+	@RequestMapping("/accounts/edit/{id}")
+	public String edit_account(@PathVariable("id") Integer id, HttpSession session, Model model) {
+		Persona p = (Persona) session.getAttribute("user");	
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p == null || is_admin != 1)
+				return "redirect:/login";
+		else {
+			model.addAttribute("persona", personaService.getById(id));
+			return "create_account";
+		}
+	}
+	
+	@RequestMapping("/exercises")
+	public String show_exercises(Model model) {
+		Query query1 = entityManager.createQuery("SELECT e FROM Exercises e");
+		List<Exercises> exercises = query1.getResultList();
+		Query query2 = entityManager.createQuery("SELECT q FROM Test_questions q ORDER BY question_order ASC");
+		List<Test_questions> Test_questions = query2.getResultList();
+		Test_questions for_th = Test_questions.get(0);
+		model.addAttribute("exercises", exercises);
+		model.addAttribute("question", for_th);
+		return "Exercises";
+	}
+	
+	@RequestMapping("/exercise_questions/{id}/{order}")
+	public String show_questions(@PathVariable("id") Integer id, Model model, @PathVariable("order") Integer question_order) {
+		Query query3 = entityManager.createQuery("SELECT q FROM Test_questions q WHERE q.exercise_id =:id ORDER BY question_order DESC");
+		query3.setParameter("id", id);
+		List<Test_questions> check_order = query3.getResultList();
+		if (question_order > check_order.get(0).getQuestion_order())
+			return "redirect:/exercises";
+		
+		Query query1 = entityManager.createQuery("SELECT q FROM Test_questions q WHERE exercise_id = :id AND question_order = :question_order");
+		query1.setParameter("id", id);
+		query1.setParameter("question_order", question_order);
+		List<Test_questions> questions = query1.getResultList();
+		model.addAttribute("questions", questions);
+		Query query2 = entityManager.createQuery("SELECT a FROM Test_answers a");
+		List<Test_answers> answers = query2.getResultList();
+		model.addAttribute("answers", answers);
+		return "ExerciseTemplate";
+	}
+	
 	@RequestMapping("/admin_exercises")
 	public String admin_exercises(HttpSession session, Model model) {
 		Persona p = (Persona) session.getAttribute("user");
 		Integer is_admin = (Integer) session.getAttribute("is_admin");
 		if (p != null && is_admin == 1) {
-			Query query = entityManager.createQuery("SELECT f FROM Persona f WHERE f.is_admin = 0");
-			List<Persona> accounts = query.getResultList();
-			model.addAttribute("accounts", accounts);
-			return "accounts";
+			Query query = entityManager.createQuery("SELECT e FROM Exercises e");
+			List<Exercises> exercises = query.getResultList();
+			model.addAttribute("exercises", exercises);
+			return "admin_exercises";
 		}
 			
 		else
 			return "redirect:/login";
+	}
+	
+	@RequestMapping("/create_exercise")
+	public String create_exercise(Model model) {
+		model.addAttribute("exercise",new Exercises());
+		return "create_exercise";
+	}
+	
+	@PostMapping("create_exercise/save")
+	public String save_new_exercise(Exercises e){
+		exercisesService.save(e);
+		return "redirect:/admin_exercises";
+	}
+	
+	@RequestMapping("/exercise/delete/{id}")
+	public String delete_exercise(@PathVariable("id") Integer id, HttpSession session) {
+		Persona p = (Persona) session.getAttribute("user");	
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p == null || is_admin != 1)
+				return "redirect:/login";
+		else {
+			exercisesService.delete_persona(id);
+			return "redirect:/admin_exercises ";
+		}
+	}
+	
+	@RequestMapping("/exercise/edit/{id}")
+	public String edit_exercise(@PathVariable("id") Integer id, HttpSession session, Model model) {
+		Persona p = (Persona) session.getAttribute("user");	
+		Integer is_admin = (Integer) session.getAttribute("is_admin");
+		if (p == null || is_admin != 1)
+				return "redirect:/login";
+		else {
+			model.addAttribute("exercise", exercisesService.getById(id));
+			Query query1 = entityManager.createQuery("SELECT e FROM Exercises e WHERE e.excercise_id = :id");
+			query1.setParameter("id", id);
+			List<Exercises> exercise_to_show = query1.getResultList();
+			model.addAttribute("exercises_for_question", exercise_to_show);
+			Query query2 = entityManager.createQuery("SELECT q FROM Test_questions q WHERE q.exercise_id =:id");
+			query2.setParameter("id", id);
+			List<Test_questions> questions = query2.getResultList();
+			Query query3 = entityManager.createQuery("SELECT a FROM Test_answers a");
+			List<Test_answers> answers = query3.getResultList();
+			model.addAttribute("answers", answers);
+			model.addAttribute("questions", questions);
+			return "edit_exercise";
+		}
+	}
+	
+	@PostMapping("/create_question")
+	public String create_question(@RequestParam("question_name") String question_name, @RequestParam("exercise_id") Integer exercise_id) {
+		Test_questions question = new Test_questions();
+		question.setExercise_id(exercise_id);
+		question.setQuestion(question_name);
+		Query query = entityManager.createQuery("SELECT q FROM Test_questions q WHERE q.exercise_id =:id ORDER BY question_order DESC");
+		query.setParameter("id", exercise_id);
+		List<Test_questions> to_check_order = query.getResultList();
+		if(to_check_order.isEmpty())
+				question.setQuestion_order(1);
+		else {
+			Test_questions for_order = to_check_order.get(0);
+			question.setQuestion_order(for_order.getQuestion_order() + 1);
+		}
+		test_questionsService.save(question);
+		return "redirect:/exercise/edit/" + exercise_id;
+	}
+	
+	@PostMapping("/create_answer")
+	public String create_answer(@RequestParam("question_id") Integer question_id, @RequestParam("answer") String answer_name, @RequestParam("select_type_answer") Integer select_type_answer, @RequestParam("exercise_id") Integer exercise_id) {
+		Test_answers answer = new Test_answers();
+		answer.setAnswer(answer_name);
+		answer.setIs_correct(select_type_answer);
+		answer.setQuestion_id(question_id);
+		test_answersService.save(answer);
+		return "redirect:/exercise/edit/" + exercise_id;
 	}
 }

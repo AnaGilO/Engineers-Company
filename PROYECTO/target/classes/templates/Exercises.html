@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Exercises</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        header{
+            padding:20px;
+            text-align:center;
+        }
+        h2 {
+            margin:40px;
+        }
+        p{
+            margin:60px;
+        }
+        nav {
+			background-color: #333;
+			overflow: hidden;
+		}
+        .ExerciseButtom{
+            background-color: #f3eded;
+            padding: 10px;
+            margin: 40px;
+            border-radius: 15px;
+            box-shadow: 10px 10px #b4b0b0ad;
+        }
+        .ExerciseButtom:hover{
+            box-shadow: 15px 15px #b4b0b0ad;
+            user-select: none;
+            cursor: pointer;
+        }
+        .ExerciseButtom h2{
+            font-size: large;
+            color: black;
+            padding: 0%;
+            margin-left: 0px;
+            margin-top: 0%;
+            
+            margin-bottom: 0%;
+        }
+        .ExerciseButtom p{
+            margin-left: 10px;
+            margin-top: 0%;
+            margin-bottom: 10px;
+            color: black;
+        }
+		
+    </style>
+<header>
+    <h1>Exercises</h1>
+    <nav>
+        <a>Daily challenge</a> 
+        <a>Exercises</a>
+        <a>Forum</a>
+        <a>Profile</a> 
+        <a>Log out</a> 
+    </nav>
+</header>
+
+<body>
+    <main>
+    <div th:each="e: ${exercises}">
+		<div class="ExerciseButtom">
+			<div th:if="${question != null}">
+			<h2><a th:href="@{/exercise_questions/{id}/{order}(id=${e.excercise_id}, order=${question.question_order})}" th:text="@{${'Exercise ' + e.excercise_id}}"></a></h2>
+			<p th:text="${e.exercise_name}"></p>
+			</div>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

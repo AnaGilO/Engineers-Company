@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Admin_exercises</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<body>
+	<a href="create_exercise">Create new Exercise</a>
+	<br><br>
+    <table>
+    	<thead>
+    		<th>Exercise</th>
+    	</thead>
+    	<tbody>
+    		<tr th:each="e : ${exercises}">
+    			<td th:text="${e.exercise_name}"></td>
+    			<td><a th:href="@{/exercise/delete/{id}(id=${e.excercise_id})}">Borrar</a></td>
+    			<td><a th:href="@{/exercise/edit/{id}(id=${e.excercise_id})}">Editar</a></td>
+    		<tr>
+    	</tbody>
+    </table>
+</body>
+</html>
