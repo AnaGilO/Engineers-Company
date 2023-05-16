@@ -6,7 +6,7 @@
 </header>
 <body>
 	
-    	<h1>Create new Exercise</h1>
+    	<h1>Edit Exercise</h1>
     <form th:action="@{/create_exercise/save}" method="post" th:object="${exercise}">
         <input type="hidden" id="id" th:field="*{excercise_id}">
     	<div>
@@ -32,7 +32,7 @@
     <h1 th:text="${q.question_id}"></h1>
     <div style="display: inline-flex; align-items: center;">
     	<form  th:action="@{/create_answer}" method="post">
-    		<label>Answer 1</label>
+    		<label>Answers</label>
     		<input type="hidden" name="question_id" th:value="${q.question_id}">
     		<input type="hidden" name="exercise_id" th:value="${q.exercise_id}">
     		<input type="text" name="answer">
