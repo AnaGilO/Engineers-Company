@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import JAVALINGO.PROYECTO.MODEL.Exercises;
 import JAVALINGO.PROYECTO.MODEL.Forum;
 import JAVALINGO.PROYECTO.MODEL.Persona;
+import JAVALINGO.PROYECTO.MODEL.daily_challenges;
 import JAVALINGO.PROYECTO.MODEL.Test_answers;
 import JAVALINGO.PROYECTO.MODEL.Test_questions;
 import JAVALINGO.PROYECTO.REPOSITORY.ForumRepository;
@@ -24,6 +25,7 @@ import JAVALINGO.PROYECTO.SERVICE.ForumService;
 import JAVALINGO.PROYECTO.SERVICE.PersonaService;
 import JAVALINGO.PROYECTO.SERVICE.Test_answersService;
 import JAVALINGO.PROYECTO.SERVICE.Test_questionsService;
+import JAVALINGO.PROYECTO.SERVICE.daily_challengesService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.servlet.http.HttpSession;
@@ -45,6 +47,9 @@ public class TestWebController {
 	
 	@Autowired
 	ExercisesService exercisesService;
+	
+	@Autowired
+	daily_challengesService daily_challengeService;
 	
 	@Autowired
 	Test_questionsService test_questionsService;
@@ -416,4 +421,63 @@ public class TestWebController {
 		test_answersService.save(answer);
 		return "redirect:/exercise/edit/" + exercise_id;
 	}
+	
+	@RequestMapping("/daily_challenge")
+	public String daily_challenges(Model model) {
+		Query query1 = entityManager.createQuery("SELECT c FROM daily_challenges c WHERE challenge_day = CURRENT_DATE()");
+		List<daily_challenges> challenge_of_day = query1.getResultList();
+		model.addAttribute("question", challenge_of_day);
+		Query query2 = entityManager.createQuery("SELECT c FROM daily_challenges c");
+		List<daily_challenges> answers = query2.getResultList();
+		model.addAttribute("answers", answers);
+		return "dailyChallenge";
+	}
+	
+	@RequestMapping("/admin_challenges")
+	public String admin_challenges(Model model) {
+		Query query = entityManager.createQuery("SELECT d FROM daily_challenges d WHERE challenge_parent IS NULL");
+		List<daily_challenges> challenge_list = query.getResultList();
+		model.addAttribute("challenge_list",challenge_list);
+		return "admin_challenges";
+	}
+	@RequestMapping("/create_challenge")
+	public String create_challenge(Model model) {
+		model.addAttribute("challenge", new daily_challenges());
+		return "create_challenge";
+	}
+	@PostMapping("/create_challenge/save")
+	public String save_challenge(daily_challenges c) {
+		daily_challengeService.save(c);
+		return "redirect:/admin_challenges";
+	}
+	
+	@RequestMapping("/challenge/delete/{id}")
+	public String delete_challenge(@PathVariable("id") Integer Id) {
+		daily_challengeService.delete_challenge(Id);
+		return "redirect:/admin_challenges";
+	}
+	@RequestMapping("/challenge/edit/{id}")
+	public String edit_challenge(@PathVariable("id") Integer Id, Model model) {
+		model.addAttribute("challenge", daily_challengeService.getById(Id));
+		Query query1 = entityManager.createQuery("SELECT c FROM daily_challenges c WHERE challenge_id = :id");
+		query1.setParameter("id", Id);
+		List<daily_challenges> only_one = query1.getResultList();
+		model.addAttribute("for_answers", only_one);
+		Query query2 = entityManager.createQuery("SELECT c FROM daily_challenges c WHERE challenge_parent = :id ");
+		query2.setParameter("id", Id);
+		List<daily_challenges> answers = query2.getResultList();
+		model.addAttribute("answers", answers);
+		return "edit_challenge";
+	}
+	
+	@PostMapping("/create_challenge_answer")
+	public String create_challenge_answer(@RequestParam("parent_id") Integer parent_id, @RequestParam("challenge_answer") String challenge_answer, @RequestParam("select_type_answer") Integer iscorrect) {
+		daily_challenges answer = new daily_challenges();
+		answer.setChallenge_parent(parent_id);
+		answer.setIs_correct(iscorrect);
+		answer.setChallenge_answer(challenge_answer);
+		daily_challengeService.save(answer);
+		return "redirect:/challenge/edit/" + parent_id;
+	}
+
 }
