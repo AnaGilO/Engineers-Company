@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<style>
+    body {
+        text-align: center;
+        }
+
+    .fieldInput{
+        background-color: #f3eded;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px 0px 20px 0px;
+        box-shadow: 10px 10px #9c6969ad;
+    }
+    .fieldInput:hover{
+        box-shadow: 15px 15px #773737ad;
+        user-select: none;
+        cursor: pointer;
+    }
+    h1 {
+        font-size: 70px;
+    }
+    input[type=submit] {
+        background-color: #a94e47;
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+        width: 200px;
+        border-radius:10px;
+    }
+
+</style>
+<body>
+    <h1>Registration</h1>
+    <p>For signing up the first time, complete the following information</p> 
+        <p>Otherwise, click here: </p> 
+        <a href="login">Login</a> <br> <br>
+    <form th:action="@{/register/save}" method="post" th:object="${persona}">
+    	<div>
+        	<label>Username</label> <br>
+        	<input class="fieldInput" type="text" id ="nombre" th:field="*{nombre}"> <br>
+        </div>
+        <div>
+        	<label>Email</label> <br>
+        	<input class="fieldInput" type="email" id="email" th:field="*{mail}"> <br>
+        </div>
+        <div>
+        	<label>Password</label> <br>
+        	<input class="fieldInput" type="password" id="password" th:field="*{password}"> <br> <br>
+        </div>
+        <div>
+        	<input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>

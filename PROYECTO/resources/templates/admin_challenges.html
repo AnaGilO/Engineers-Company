@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Menu Challenges</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<body>
+	<a href="create_challenge">Create challenge</a>
+	<br><br>
+    <table>
+    	<thead>
+    		<th>Nombre</th>
+    		<th>Día</th>
+    	</thead>
+    	<tbody>
+    		<tr th:each="c : ${challenge_list}">
+    			<td th:text="${c.challenge}"></td>
+    			<td th:text="${c.challenge_day}"></td>
+    			<td><a th:href="@{/challenge/delete/{id}(id=${c.challenge_id})}">Borrar</a></td>
+    			<td><a th:href="@{/challenge/edit/{id}(id=${c.challenge_id})}">Editar</a></td>
+    		</tr>
+    	</tbody>
+    </table>
+</body>
+</html>

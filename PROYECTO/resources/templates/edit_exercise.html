@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Create_ Exercise</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<body>
+	
+    	<h1>Edit Exercise</h1>
+    <form th:action="@{/create_exercise/save}" method="post" th:object="${exercise}">
+        <input type="hidden" id="id" th:field="*{excercise_id}">
+    	<div>
+        	<label>Excercise Name</label> <br>
+        	<input type="text" id ="exercise_name" th:field="*{exercise_name}"> <br><br>
+        </div>
+        <div>
+        	<input type="submit" value="Submit">
+        </div>
+    </form>
+    
+    <h1>Create questions</h1>
+    <div th:each="e : ${exercises_for_question}">
+    <form th:action="@{/create_question}" method="post">
+    	<label>Question</label>
+    	<input type="text" id="question_text" name="question_name">
+  		<input type="hidden" th:value="${e.excercise_id}" name="exercise_id"> <br><br>
+  		<input type="submit" value="Submit">
+    </form>
+    </div>
+    <br>
+    <div th:each="q :${questions}">
+    <h1 th:text="${q.question_id}"></h1>
+    <div style="display: inline-flex; align-items: center;">
+    	<form  th:action="@{/create_answer}" method="post">
+    		<label>Answers</label>
+    		<input type="hidden" name="question_id" th:value="${q.question_id}">
+    		<input type="hidden" name="exercise_id" th:value="${q.exercise_id}">
+    		<input type="text" name="answer">
+    		<select name="select_type_answer">
+    			<option value="1">Correcta</option>
+    			<option value="0">Incorrecta</option>
+    		</select>
+    		<input type="submit" value="Submit">
+    	</form>
+    </div>
+    
+    <div th:each="a :${answers}">
+    	<div th:if="${a.question_id == q.question_id}">
+    			<label>Posible Answers</label> <br>
+    			<span th:text="${a.answer}"></span>
+    	</div>
+    </div>
+    
+    </div>
+    
+</body>
+</html>

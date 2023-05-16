@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Create_ Exercise</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</head>
+<body>
+	
+    	<h1>Edit Challenge</h1>
+    <form th:action="@{/create_challenge/save}" method="post" th:object="${challenge}">
+            <input type="hidden" id="id" th:field="*{challenge_id}">
+    	<div>
+        	<label>Challenge Description</label> <br>
+        	<textarea id ="challenge_description" th:field="*{challenge}"></textarea> <br>
+        </div>
+        <div>
+        	<label>Date for the challenge</label>
+        	<input type="date" th:field="*{challenge_day}">
+        </div>
+        <div>
+        	<input type="submit" value="Submit">
+        </div>
+    </form>
+    
+    
+    <h1>Create Answer</h1>
+    <div th:each=" c : ${for_answers}">
+    <form th:action="@{/create_challenge_answer}" method="post">
+    <input type="hidden" name="parent_id" th:value="${c.challenge_id}">
+    <input type="text" name="challenge_answer">
+    <select name="select_type_answer">
+    	<option value="1">Correcta</option>
+    	<option value="2">Incorrecta</option>
+    </select>
+    <input type="submit" value="Submit">
+    </form>
+    </div>
+    <br>
+    <div th:each=" a : ${answers}">
+    	<label>Answer:</label>
+    	<span th:text="${a.challenge_answer}"></span>
+    </div>
+    
+</body>
+</html>

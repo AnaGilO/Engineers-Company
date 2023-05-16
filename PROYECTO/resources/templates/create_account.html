@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<header>
+    <title>Registration</title>
+    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+</header>
+<body>
+	<div th:switch="${persona.persona_pk}">
+    	<h1 th:case="null">Create new Account</h1>
+    	<h1 th:case="*">Edit Account</h1>
+    </div>
+    <form th:action="@{/create_account/save}" method="post" th:object="${persona}">
+    <input type="hidden" id="id" th:field="*{persona_pk}">
+    	<div>
+        	<label>Username</label> <br>
+        	<input type="text" id ="nombre" th:field="*{nombre}"> <br>
+        </div>
+        <div>
+        	<label>Email</label> <br>
+        	<input type = "email" id="email" th:field="*{mail}"> <br>
+        </div>
+        <div th:if="${persona.persona_pk == null}">
+        	<label>Password</label> <br>
+        	<input type="password" id="password" th:field="*{password}"> <br> <br>
+        </div>
+        <div>
+        	<label>Select Permissions</label> <br>
+        	<select id="permissions" th:field="*{is_admin}">
+        		<option value="1">Admin</option>
+            	<option value="0">No Admin</option>
+        	</select>
+        </div>
+        <div>
+        	<input type="submit" value="Submit">
+        </div>
+    </form>
+</body>
+</html>
