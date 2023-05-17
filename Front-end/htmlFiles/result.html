@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Daily Challenge</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css'>
+</head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        header{
+            padding:20px;
+            text-align:center;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .QuestionBox{
+            margin-top: 40px;
+            position: relative;
+            background-color: beige;
+            width:fit-content;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 25px;
+            border-radius: 25px;
+            box-shadow: 10px 10px rgb(155, 155, 115);
+            max-width: 800px;
+            text-align:justify;
+            width: 450px;
+            font-size: 40px;
+        }
+        #AnswerContainer{
+            display: flex;
+        }
+        .AnswerButton{
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            border-radius: 15px;
+            font-size: 25px;
+        }
+        .ec{
+            position: absolute;
+            font-size: 70px;
+            top: 85%;
+            left: 95%;
+            size: 100px;
+        }
+        h1{
+            font-size: 40px;
+        }
+        #b{
+            max-width: 80%;
+            user-select: none;
+        }
+        #CorrectAnswer{
+            background-color: rgb(55, 231, 55);
+        }
+        #IncorrectAnswer{
+            background-color: rgb(226, 51, 51);
+        }
+    </style>
+<header>
+
+</header>
+
+<body>
+
+    <div id="CorrectAnswer" class="QuestionBox">
+        <span class='ec ec-clap'></span>
+        <p id="QuestionText">Correct!!!</p>
+        <div id="AnswerContainer">
+            <button class="AnswerButton">Next</button>
+        </div> 
+    </div>
+
+    <div id="IncorrectAnswer" class="QuestionBox">
+        <span class='ec ec-neutral-face'></span>
+        <p id="QuestionText">Incorrect</p>
+        <div id="AnswerContainer">
+            <button class="AnswerButton">Next</button>
+        </div> 
+    </div>
+    
+</body>
+</html>
