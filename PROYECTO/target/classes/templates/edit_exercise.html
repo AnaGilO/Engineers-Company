@@ -23,6 +23,7 @@
     <form th:action="@{/create_question}" method="post">
     	<label>Question</label>
     	<input type="text" id="question_text" name="question_name">
+    	<input type="number" id="question_experience" name="question_experience" min="1" max="100">
   		<input type="hidden" th:value="${e.excercise_id}" name="exercise_id"> <br><br>
   		<input type="submit" value="Submit">
     </form>

@@ -10,7 +10,6 @@
     	<h1 th:case="*">Edit Account</h1>
     </div>
     <form th:action="@{/create_account/save}" method="post" th:object="${persona}">
-    <input type="hidden" id="id" th:field="*{persona_pk}">
     	<div>
         	<label>Username</label> <br>
         	<input type="text" id ="nombre" th:field="*{nombre}"> <br>

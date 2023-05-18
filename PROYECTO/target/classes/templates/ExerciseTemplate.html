@@ -73,7 +73,7 @@
         <div id="AnswerContainer">
         <div th:each="a : ${answers}">
         	<div th:if="${a.question_id == q.question_id}">
-            <a th:href="@{/exercise_questions/{id}/{order}(id=${q.exercise_id}, order=${q.question_order + 1})}"><button class="AnswerButton" th:text="${a.answer}"></button></a>
+            <a th:href="@{/add_experience_exercise/{id}/{order}/{question_id}/{answer_id}(id=${q.exercise_id}, order=${q.question_order}, question_id=${q.question_id}, answer_id=${a.answer_id})}"><button class="AnswerButton" th:text="${a.answer}"></button></a>
            	</div>
         </div>
         </div>
