@@ -1,6 +1,6 @@
 body{
-    background-image: url("maxresdefault.jpg");
     background-size: cover;
+    background-image: url("../IMG/fondo.jpeg");
     background-repeat: no-repeat;
 }
 

@@ -16,4 +16,8 @@ public class Test_answersService {
 		test_answersRepository.saveAndFlush(answer);
 	}
 
+	public Test_answers getById(Integer answer_id) {
+		return test_answersRepository.getReferenceById(answer_id);
+	}
+
 }

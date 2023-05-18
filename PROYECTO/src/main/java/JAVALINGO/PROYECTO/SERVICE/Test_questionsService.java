@@ -15,5 +15,8 @@ public class Test_questionsService {
 	public void save(Test_questions question) {
 		test_questionsRepository.saveAndFlush(question);
 	}
-
+	
+	public Test_questions getById(Integer question_id) {
+		return test_questionsRepository.getReferenceById(question_id);
+	}
 }

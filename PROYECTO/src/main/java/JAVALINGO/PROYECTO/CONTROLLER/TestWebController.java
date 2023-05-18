@@ -395,10 +395,11 @@ public class TestWebController {
 	}
 	
 	@PostMapping("/create_question")
-	public String create_question(@RequestParam("question_name") String question_name, @RequestParam("exercise_id") Integer exercise_id) {
+	public String create_question(@RequestParam("question_name") String question_name, @RequestParam("exercise_id") Integer exercise_id, @RequestParam("question_experience") Integer question_experience) {
 		Test_questions question = new Test_questions();
 		question.setExercise_id(exercise_id);
 		question.setQuestion(question_name);
+		question.setExperience(question_experience);
 		Query query = entityManager.createQuery("SELECT q FROM Test_questions q WHERE q.exercise_id =:id ORDER BY question_order DESC");
 		query.setParameter("id", exercise_id);
 		List<Test_questions> to_check_order = query.getResultList();
@@ -478,6 +479,47 @@ public class TestWebController {
 		answer.setChallenge_answer(challenge_answer);
 		daily_challengeService.save(answer);
 		return "redirect:/challenge/edit/" + parent_id;
+	}
+	
+	@RequestMapping("add_experience_exercise/{id}/{order}/{question_id}/{answer_id}")
+	public String add_experience_exercise(HttpSession session,Model model, @PathVariable("id") Integer exercise_id, @PathVariable("order") Integer order, @PathVariable("question_id") Integer question_id, @PathVariable("answer_id") Integer answer_id) {
+		Persona p = (Persona) session.getAttribute("user");
+		
+		Test_questions question = test_questionsService.getById(question_id);
+		Test_answers answer = test_answersService.getById(answer_id);
+		Integer is_correct = answer.getIs_correct();
+		if (answer.getIs_correct() == 1)
+			p.setExperience(p.getExperience() + question.getExperience());
+		if (p.getExperience() >= 100) {
+			p.setLevel(p.getLevel() + 1);
+			p.setExperience(0);
+		}
+		personaService.Experience(p);
+		return "redirect:/result/" + exercise_id + "/" + order + "/" + is_correct;
+	}
+	
+	@RequestMapping("result/{id}/{order}/{correct}")
+	public String show_result(@PathVariable("id") Integer exercise_id, @PathVariable("order") Integer order, @PathVariable("correct") Integer is_correct, Model model){
+		model.addAttribute("exercise_id",exercise_id);
+		model.addAttribute("order", order);
+		model.addAttribute("correct", is_correct);
+		return "result";
+	}
+	
+	@RequestMapping("result_daily_challenge/{correct}/{id}")
+	public String result_daily_challenge(Model model, @PathVariable("correct") Integer is_correct, HttpSession session, @PathVariable("id") Integer id) {
+		model.addAttribute("correct", is_correct);
+		Persona p = (Persona) session.getAttribute("user");
+		daily_challenges challenge = daily_challengeService.getById(id);
+		if (is_correct == 1) {
+			p.setExperience(p.getExperience() + challenge.getExperience());
+		}
+		if (p.getExperience() >= 100) {
+			p.setLevel(p.getLevel() +1);
+			p.setExperience(0);
+		}
+		personaService.Experience(p);
+		return "result_challenge";
 	}
 
 }

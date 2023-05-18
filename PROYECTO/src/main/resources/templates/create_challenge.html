@@ -12,6 +12,8 @@
         	<label>Challenge Description</label> <br>
         	<textarea id ="challenge_description" th:field="*{challenge}"></textarea> <br>
         </div>
+        <label>Experience: </label>
+        <input type="number" id="experience" name="experience" min="1" max="100" th:field="*{experience}">
         <div>
         	<label>Date for the challenge</label>
         	<input type="date" th:field="*{challenge_day}">

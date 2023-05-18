@@ -14,10 +14,14 @@ public class PersonaService {
 
 	public void save(Persona p) {
 		p.setIs_admin(1);
+		p.setExperience(0);
+		p.setLevel(1);
 		personaRepository.saveAndFlush(p);
 	}
 	
 	public void save_account(Persona p) {
+		p.setLevel(1);
+		p.setExperience(0);
 		personaRepository.saveAndFlush(p);
 	}
 	
@@ -27,5 +31,9 @@ public class PersonaService {
 
 	public Persona getById(Integer id) {
 		return personaRepository.getReferenceById(id);
+	}
+	
+	public void Experience(Persona p) {
+		personaRepository.saveAndFlush(p);
 	}
 }

@@ -8,9 +8,24 @@
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="CSS/style.css">
 </header>
-    <style>
-        body {
-            background-image: url("IMG/background.jpeg");
+   <style>
+        body{
+            text-align: center;
+        }
+        #logo img{
+            width: 500px;
+            justify-content: center;
+            margin-top: 4%;
+        }
+        #logo #title{
+            font-style: bold;
+            font-size: 90px;
+        }
+        #logo{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
     </style>
 <body>
@@ -23,5 +38,9 @@
         <a href="logout">Log out</a> 
         <a href="admin" th:if="${session.is_admin eq 1}">Admin Panel</a> 
     </nav>
+    <div id="logo">
+        <img src="IMG/logo.png"></img>
+        <p id="title">Javalingo</p>
+    </div>
 </body>
 </html>

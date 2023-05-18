@@ -24,7 +24,17 @@ public class daily_challenges {
 	
 	private Integer challenge_parent;
 	
+	private Integer experience;
 	
+	
+	public Integer getExperience() {
+		return experience;
+	}
+
+	public void setExperience(Integer experience) {
+		this.experience = experience;
+	}
+
 	public Integer getChallenge_parent() {
 		return challenge_parent;
 	}

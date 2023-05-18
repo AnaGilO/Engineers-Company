@@ -17,6 +17,7 @@
         	<label>Date for the challenge</label>
         	<input type="date" th:field="*{challenge_day}">
         </div>
+        <input type="number" id="experience" name="experience" min="1" max="100" th:field="*{experience}">
         <div>
         	<input type="submit" value="Submit">
         </div>
@@ -30,7 +31,7 @@
     <input type="text" name="challenge_answer">
     <select name="select_type_answer">
     	<option value="1">Correcta</option>
-    	<option value="2">Incorrecta</option>
+    	<option value="0">Incorrecta</option>
     </select>
     <input type="submit" value="Submit">
     </form>

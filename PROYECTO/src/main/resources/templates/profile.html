@@ -4,33 +4,85 @@
     (for when you enter the page the first time)
 -->
 <html>
-<header>
+<head>
     <title>profile</title>
     <link rel="stylesheet" type="text/css" href="CSS/style.css">
-</header>
+</head>
+
 <style>
-    body {
-        background-image: url("IMG/background.jpeg"); 
-    }
+
+*{
+    color:#ffffff
+}
+body{
+  background-image: url("IMG/profile.png");
+}
+.profile-menu {
+  width: 380px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #070707;
+  padding: 20px;
+  box-sizing: border-box;
+  opacity: 0.9;
+}
+
+.profile-menu-header h1{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size:25px;
+  margin-top: 30px;
+  opacity: 1;
+}
+
+.profile-menu-header h1:hover{
+  font-size:30px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin-top: 30px;
+}
+
+.profile-menu-header {
+  text-align: center;
+}
+
+.profile-menu-header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-menu-header p {
+  margin-top: auto;
+  margin-bottom: 5px;
+  font-size: 2vi;
+  color: #ffffff;
+}
 </style>
+
 <body>
-    <h1>My Profile</h1> 
-    <h2>Personal infomation</h2> 
+	<div class="profile-menu">
+	<div class="profile-menu-header">
     <div th:each="persona : ${personas}">
     	<div>
-    		<p><b>Username</b></p> 
     		<p th:text="${persona.nombre}"></p>
+    		<hr>
     	</div>
+    	      <h1>Personal infomation</h1> 
     	<div>
     		<p><b>Email</b></p> 
     		<p th:text="${persona.mail}"></p>
     	</div>
+    	<h1>Progress</h1> 
+    	<p th:text="${'Level: ' + persona.level }"></p> 
+    	<p th:text="${'Experience: ' + persona.experience + '%'}"></p>
     </div>
-    <h2>Progress</h2> 
-    <p>Learning level</p> 
-    <!--
-        The original idea is to display a graph repressenting the progress level of the user, along with an indicator of his learning level
-        (beginner, intermediate, advanced...)
-    -->
+    </div>
+    </div>
 </body>
+
 </html>

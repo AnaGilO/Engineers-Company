@@ -15,55 +15,59 @@ public class Test_questions {
 	@Id
 	@GeneratedValue	
 	private Integer question_id;
-	@Nonnull
+	
 	private String question;
 	
 	private Integer exercise_id;
 	
-	@Nonnull
 	private LocalDate created_date;
 	
 	private Integer question_order;
 	
-	
+	private Integer experience;
 	
 	
 	public Test_questions() {
 		created_date = LocalDate.now();	
 	}
 	
-	
+	public Integer getExperience() {
+		return experience;
+	}
+
+	public void setExperience(Integer experience) {
+		this.experience = experience;
+	}
+
 	public Integer getQuestion_order() {
 		return question_order;
 	}
-
-
-
 
 
 	public void setQuestion_order(Integer question_order) {
 		this.question_order = question_order;
 	}
 
-
-
-
-
 	public Integer getQuestion_id() {
 		return question_id;
 	}
+	
 	public void setQuestion_id(Integer question_id) {
 		this.question_id = question_id;
 	}
+	
 	public String getQuestion() {
 		return question;
 	}
+	
 	public void setQuestion(String question) {
 		this.question = question;
 	}
+	
 	public LocalDate getCreated_date() {
 		return created_date;
 	}
+	
 	public void setCreated_date(LocalDate created_date) {
 		this.created_date = created_date;
 	}
@@ -71,6 +75,7 @@ public class Test_questions {
 	public Integer getExercise_id() {
 		return exercise_id;
 	}
+	
 	public void setExercise_id(Integer exercise_id) {
 		this.exercise_id = exercise_id;
 	}

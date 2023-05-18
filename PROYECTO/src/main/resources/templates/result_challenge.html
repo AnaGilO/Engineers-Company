@@ -18,7 +18,7 @@
             flex-direction: column;
             align-items: center;
         }
-        #QuestionBox{
+        .QuestionBox{
             margin-top: 40px;
             position: relative;
             background-color: beige;
@@ -32,6 +32,8 @@
             box-shadow: 10px 10px rgb(155, 155, 115);
             max-width: 800px;
             text-align:justify;
+            width: 450px;
+            font-size: 40px;
         }
         #AnswerContainer{
             display: flex;
@@ -45,7 +47,7 @@
             border-radius: 15px;
             font-size: 25px;
         }
-        .ec-thinking{
+        .ec{
             position: absolute;
             font-size: 70px;
             top: 85%;
@@ -55,30 +57,37 @@
         h1{
             font-size: 40px;
         }
-        #QuestionText{
+        #b{
             max-width: 80%;
             user-select: none;
         }
+        #CorrectAnswer{
+            background-color: rgb(55, 231, 55);
+        }
+        #IncorrectAnswer{
+            background-color: rgb(226, 51, 51);
+        }
     </style>
 <header>
-    <h1>Daily Challenge</h1>
+
 </header>
 
 <body>
-
-    <div id="QuestionBox">
-    	<div th:each=" q : ${question}">
-        <span class='ec ec-thinking'></span>
-        <p id="QuestionText" th:text="${q.challenge}"></p>
+	<div th:switch="${correct}">
+    <div id="CorrectAnswer" class="QuestionBox" th:case="1">
+        <span class='ec ec-clap'></span>
+        <p id="QuestionText">Correct!!!</p>
         <div id="AnswerContainer">
-        <div th:each="a : ${answers}">
-        	<div th:if="${a.challenge_parent == q.challenge_id}">
-            	<a th:href="@{result_daily_challenge/{correct}/{id}(correct=${a.is_correct}, id=${q.challenge_id})}"><button class="AnswerButton" th:text="${a.challenge_answer}"></button></a>
-            </div>
-         <div>
+            <a href="/home"><button class="AnswerButton">Next</button></a>
         </div> 
-        </div>
     </div>
-    
+    <div id="IncorrectAnswer" class="QuestionBox" th:case="0">
+        <span class='ec ec-neutral-face'></span>
+        <p id="QuestionText">Incorrect</p>
+        <div id="AnswerContainer">
+            <a href="/home"><button class="AnswerButton">Next</button></a>
+        </div> 
+    </div>
+    </div>
 </body>
 </html>

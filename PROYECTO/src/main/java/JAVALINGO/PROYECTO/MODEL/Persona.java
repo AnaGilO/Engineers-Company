@@ -26,11 +26,42 @@ public class Persona {
 	
 	private Integer is_admin;
 	
+	private Integer level;
+	
+	private Integer experience;
+	
 	public Persona() {
 		fecha_creacion = LocalDate.now();	
 	}
 	
-	
+	public Integer getLevel() {
+		return level;
+	}
+
+
+
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+
+
+
+	public Integer getExperience() {
+		return experience;
+	}
+
+
+
+
+	public void setExperience(Integer experience) {
+		this.experience = experience;
+	}
+
+
+
+
 	public Integer getIs_admin() {
 		return is_admin;
 	}
@@ -42,7 +73,7 @@ public class Persona {
 	public Integer getPersona_pk() {
 		return persona_pk;
 	}
-	public void setPersona_pk(int persona_pk) {
+	public void setPersona_pk(int º) {
 		this.persona_pk = persona_pk;
 	}
 	
