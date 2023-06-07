@@ -4,7 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
+/**
+ * This class is how I generate the Forum table in the database
+ * @author Roberto García Román
+ *
+ */
 @Entity
 public class Forum {
 	@Id

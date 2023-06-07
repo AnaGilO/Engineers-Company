@@ -7,7 +7,11 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
+/**
+ * This class is how I generate the daily challenge table in the database
+ * @author Roberto García Román
+ *
+ */
 @Entity
 public class daily_challenges {
 	@Id

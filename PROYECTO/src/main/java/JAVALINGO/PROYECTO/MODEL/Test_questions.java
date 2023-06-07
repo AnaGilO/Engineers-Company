@@ -9,7 +9,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-
+/**
+ * This class is how I generate the Test questions table in the database
+ * @author Roberto García Román
+ *
+ */
 @Entity
 public class Test_questions {
 	@Id

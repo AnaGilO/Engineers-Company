@@ -8,7 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
+/**
+ * This class is how I generate the Test Answers table in the database
+ * @author Roberto García Román
+ *
+ */
 @Entity
 public class Test_answers {
 	@Id
